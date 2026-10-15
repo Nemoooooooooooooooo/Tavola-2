@@ -1,0 +1,436 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tavola 1_Sketch di una architettura</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: un "atlante" su carta millimetrata — indice a griglia di schede, pagine-edificio con titolone espanso e cartiglio tecnico */
+:root{
+  --paper:#F2F3F0; --sheet:#FBFBF9; --ink:#14171B; --mute:#5C636B; --rule:#CBD0CA; --grid:rgba(30,79,216,.07);
+  --accent:#1E4FD8; --accent-ink:#FFFFFF; --soft:#E4E9F7;
+  --shade:#0B0E13; --on-photo:#F4F5F2; --photo-accent:#A9BCFF;
+  --display:"Archivo","Arial Narrow",Helvetica,Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#111316; --sheet:#171A1E; --ink:#E8EAE6; --mute:#9AA1A8; --rule:#2C3138; --grid:rgba(124,155,255,.06);
+  --accent:#7D9CFF; --accent-ink:#0E1220; --soft:#1C2340; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#111316; --sheet:#171A1E; --ink:#E8EAE6; --mute:#9AA1A8; --rule:#2C3138; --grid:rgba(124,155,255,.06);
+  --accent:#7D9CFF; --accent-ink:#0E1220; --soft:#1C2340; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);padding-block:0 72px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* barra */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+.bar .in{max-width:1240px;margin:0 auto;padding:12px clamp(16px,4vw,48px);display:flex;gap:16px;align-items:center;justify-content:space-between}
+.brand{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 125;font-size:15px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.brand span{color:var(--accent)}
+.bar .meta{color:var(--mute)}
+.bar-r{display:flex;align-items:center;gap:16px}
+.reset{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:999px;border:1px solid var(--ink);background:var(--sheet);color:var(--ink);
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s}
+.reset i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+.reset i svg{width:14px;height:14px;display:block}
+.reset:hover{background:var(--ink);color:var(--paper)}
+.reset:hover i{transform:rotate(-200deg)}
+.reset:active{transform:scale(.96)}
+@media (max-width:640px){.bar .meta{display:none}}
+.reset.show{background:var(--ink);color:var(--paper)}
+.reset.show:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.reset.show:hover i{transform:scale(1.12)}
+.reset.show:hover i{background:#fff;color:var(--accent)}
+.bar-r{gap:10px}
+.brand,.reset{white-space:nowrap}
+@media (max-width:480px){.reset .tt{display:none}.bar-r{gap:8px}}
+
+
+/* hero */
+.hero{padding-block:clamp(40px,8vw,96px) 32px;display:grid;grid-template-columns:minmax(0,1fr);gap:28px}
+.hero>*{min-width:0}
+.hero h1{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;
+  font-size:clamp(26px,7.2vw,94px);line-height:.88;letter-spacing:-.01em;margin:0;text-wrap:balance;overflow-wrap:normal;word-break:keep-all;hyphens:none;max-width:100%}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lede{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end}
+.hero .lede p{margin:0;max-width:60ch;font-size:19px}
+.req{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-end}
+.req span{border:1px solid var(--ink);padding:6px 10px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:var(--sheet)}
+@media (max-width:760px){.hero .lede{grid-template-columns:1fr}}
+@media (max-width:560px){.hero h1,.d-head h1{font-variation-settings:"wdth" 100}}
+
+/* filtri */
+.filters{display:grid;gap:12px;padding-block:20px;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);margin-bottom:28px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.frow .lab{color:var(--mute);min-width:84px}
+.chip{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:7px 11px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);cursor:pointer}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.count{margin-left:auto;color:var(--mute)}
+.fsep{width:1px;align-self:stretch;background:var(--rule);margin:0 4px}
+.chip.chip-flip{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip.chip-flip:hover{filter:brightness(1.08);border-color:var(--accent)}
+.chip.chip-flip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--accent)}
+.chip-flip b{font-weight:500;min-width:1.6em;padding:1px 6px;border-radius:999px;background:var(--accent-ink);color:var(--accent);text-align:center;font-variant-numeric:tabular-nums}
+
+/* griglia schede */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;padding:1px}
+.grid>.card{outline:1px solid var(--rule)}
+.card{background:var(--sheet);padding:18px 18px 16px;text-decoration:none;display:grid;grid-template-rows:auto 1fr auto;gap:14px;min-height:220px;position:relative;transition:background .18s}
+.card:hover,.card:focus-visible{background:var(--soft)}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;color:var(--mute)}
+.card .mid{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card .mid>div{min-width:0}
+.card .num{font-family:var(--display);font-weight:300;font-variation-settings:"wdth" 62;font-size:44px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.card h3{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 112;text-transform:uppercase;font-size:21px;line-height:1.02;margin:0;text-wrap:balance}
+.card .by{font-size:15px;color:var(--mute);margin-top:6px}
+.card .foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--rule);padding-top:10px;color:var(--mute)}
+.card.flip{padding:0;background:var(--paper);display:block;perspective:1100px;min-height:220px}
+.card.flip:hover,.card.flip:focus-visible{background:var(--paper)}
+.flip .inner{position:relative;display:grid;min-height:220px;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,1.25,.4,1)}
+.flip .face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip .front{background:var(--sheet);padding:18px 18px 16px;display:grid;grid-template-rows:auto 1fr auto;gap:14px}
+.flip .back{transform:rotateY(180deg);position:relative;overflow:hidden;background:var(--shade);color:var(--on-photo);display:grid;align-content:end}
+.flip .back img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.2s cubic-bezier(.2,.7,.2,1) .15s}
+.flip .back::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 45%,color-mix(in srgb,var(--shade) 85%,transparent) 100%)}
+.flip .back .cap{position:relative;z-index:2;padding:16px 18px;display:grid;gap:4px}
+.flip .back .cap b{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 112;text-transform:uppercase;font-size:19px;line-height:1.02}
+.flip .back .cap .mono{color:var(--photo-accent)}
+.flip .back .cap{gap:10px}
+.flip .back .explore{justify-self:start;display:inline-flex;align-items:center;gap:8px;padding:4px 4px 4px 12px;border-radius:999px;background:#fff;color:#14171B;
+  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 1px 0 rgba(0,0,0,.06),0 6px 16px rgba(10,12,16,.28);transition:transform .2s ease,box-shadow .2s}
+.flip .back .explore i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;transition:transform .3s cubic-bezier(.3,1.4,.5,1)}
+.flip .back .explore i svg{width:14px;height:14px;display:block}
+.flip .back .explore:hover{box-shadow:0 1px 0 rgba(0,0,0,.06),0 10px 22px rgba(10,12,16,.34)}
+.flip .back .explore:hover i{transform:translateX(3px)}
+.flip .back .explore:active{transform:scale(.95)}
+.flip.flipped .inner{transform:rotateY(180deg)}
+.flip.flipped .back img{transform:scale(1)}
+@media (hover:hover){.flip:not(.flipped):hover .inner{transform:rotateY(8deg)}}
+.cap .touch{display:none}
+@media (hover:none){.cap .touch{display:inline}.cap .desk{display:none}}
+@media (prefers-reduced-motion:reduce){
+  .flip .inner{transform-style:flat;transition:none}
+  .flip .back{transform:none;opacity:0;transition:opacity .25s}
+  .flip:hover .inner,.flip.flipped .inner,.flip:focus-visible .inner{transform:none}
+  .flip:hover .back,.flip.flipped .back,.flip:focus-visible .back{opacity:1}
+  .flip .back img{transition:none;transform:none}}
+.empty{padding:40px;background:var(--sheet);color:var(--mute)}
+
+/* pagina edificio */
+.crumbs{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:24px 0;color:var(--mute)}
+.crumbs a{text-decoration:none;border-bottom:1px solid currentColor}
+.crumbs a:hover{color:var(--accent)}
+.d-head{padding-block:clamp(24px,5vw,56px) 28px;border-bottom:2px solid var(--ink)}
+.d-head .ep{color:var(--accent)}
+.d-head h1{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 125;text-transform:uppercase;
+  font-size:clamp(30px,7.5vw,108px);line-height:.9;margin:12px 0 18px;text-wrap:balance;overflow-wrap:break-word;hyphens:auto;max-width:100%}
+a.site{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:4px}
+a.site span{font-size:.7em;margin-left:2px;color:var(--accent);vertical-align:.25em}
+a.site:hover{color:var(--accent)}
+.d-head .who{font-family:var(--display);font-weight:500;font-variation-settings:"wdth" 100;font-size:clamp(20px,2.6vw,30px);margin:0}
+.d-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);padding-top:32px}
+@media (max-width:860px){.d-body{grid-template-columns:1fr}}
+
+.fig{margin:0;display:grid;gap:10px}
+.frame{position:relative;aspect-ratio:4/3;max-width:100%;background:var(--sheet);border:1px solid var(--rule);display:grid;place-items:center;overflow:hidden}
+.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.frame .ph{display:grid;gap:14px;justify-items:center;text-align:center;padding:24px}
+.frame .ph b{font-family:var(--display);font-weight:200;font-variation-settings:"wdth" 62;font-size:clamp(90px,16vw,180px);line-height:.8;color:var(--rule)}
+.frame .ph span{color:var(--mute)}
+.frame::before,.frame::after{content:"";position:absolute;width:22px;height:22px;border:0 solid var(--ink);pointer-events:none}
+.frame::before{top:10px;left:10px;border-top-width:1.5px;border-left-width:1.5px}
+.frame::after{bottom:10px;right:10px;border-bottom-width:1.5px;border-right-width:1.5px}
+.fig figcaption{color:var(--mute);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.frame.has{aspect-ratio:auto;place-items:stretch}
+.frame.has button{all:unset;display:block;cursor:zoom-in}
+.frame.has img{width:100%;height:auto;max-height:72vh;object-fit:contain;background:var(--sheet)}
+.thumbs{display:flex;flex-wrap:wrap;gap:8px}
+.thumbs button{padding:0;border:1px solid var(--rule);background:var(--sheet);width:84px;height:64px;cursor:pointer;overflow:hidden}
+.thumbs button img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs button[aria-current="true"]{outline:2px solid var(--accent);outline-offset:2px;border-color:var(--accent)}
+.lb{position:fixed;inset:0;z-index:20;background:rgba(10,12,15,.92);display:grid;place-items:center;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));cursor:zoom-out}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;background:#fff}
+.lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:16px;color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ink);background:var(--sheet)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn:hover{transform:translateY(-1px)}
+
+/* cartiglio */
+.cart{border:1.5px solid var(--ink);background:var(--sheet);font-variant-numeric:tabular-nums}
+.cart .row{display:grid;grid-template-columns:120px minmax(0,1fr);border-top:1px solid var(--rule)}
+.cart .row:first-child{border-top:0}
+.cart .k{padding:10px 12px;border-right:1px solid var(--rule);color:var(--mute)}
+.cart .v{padding:10px 12px;font-family:var(--display);font-variation-settings:"wdth" 100;font-weight:600;font-size:16px;min-width:0}
+.cart .head{display:flex;justify-content:space-between;padding:10px 12px;background:var(--ink);color:var(--paper)}
+
+.text{display:grid;gap:22px;align-content:start}
+.desc{font-size:19px;margin:0;max-width:62ch}
+.tip{border-left:3px solid var(--accent);padding:4px 0 4px 16px;display:grid;gap:4px}
+.tip p{margin:0;font-style:italic;max-width:60ch}
+.tip .mono{color:var(--accent)}
+
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:56px}
+.pager a{background:var(--sheet);padding:18px;text-decoration:none;display:grid;gap:6px}
+.pager a:hover{background:var(--soft)}
+.pager a.next{text-align:right}
+.pager .t{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 112;text-transform:uppercase;font-size:18px;line-height:1.05}
+.pager .mono{color:var(--mute)}
+@media (max-width:560px){.pager{grid-template-columns:1fr}.pager a.next{text-align:left}}
+
+footer{padding-top:48px;color:var(--mute)}
+
+
+
+
+@media (prefers-reduced-motion:no-preference){
+  .view{animation:in .35s ease-out both}
+  @keyframes in{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<header class="bar"><div class="in">
+  <a class="brand" href="#">Tavola 1</a>
+  <span class="bar-r"><span class="mono meta">3C · Laboratorio di Architettura</span>
+  <button type="button" class="reset show" id="show-all"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 8s2.4-4.5 6.5-4.5S14.5 8 14.5 8 12.1 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></svg></i>Scopri<span class="tt"> tutte</span></button>
+  <button type="button" class="reset" id="reset-all"><i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5a5 5 0 1 1 .9 4.6"/><path d="M3 2.5v4h4"/></svg></i>Copri<span class="tt"> tutte</span></button></span>
+</div></header>
+<main class="wrap" id="app"></main>
+
+<script>
+document.documentElement.lang = "it";
+const E = {A:"Antichità",R:"Rinascimento",N:"Tra '800 e '900",M:"Movimento Moderno",S:"Secondo Novecento",C:"Contemporaneo"};
+const B = [
+["Partenone","Ictino e Callicrate","Atene","447–432 a.C.","A",2,"Tempio dorico in marmo pentelico dedicato ad Atena Parthenos, sull'Acropoli. È il modello dell'ordine dorico: otto colonne in facciata, diciassette sui lati e una serie di correzioni ottiche (entasi delle colonne, leggera curvatura dello stilobate) che lo fanno apparire perfettamente dritto.","Lavora sul prospetto principale e sulla pianta del peristilio: la regolarità delle colonne è il tema della tavola."],
+["Pantheon","Committenza dell'imperatore Adriano","Roma","ca. 113–125 d.C.","A",2,"Ricostruito sotto Adriano e completato intorno al 125 d.C. Un pronao con sedici colonne corinzie dai fusti in granito introduce una grande rotonda coperta da una cupola emisferica in calcestruzzo. Il diametro interno (circa 43 m) è uguale all'altezza: nella sezione la cupola contiene una sfera perfetta. La luce entra solo dall'oculo centrale, largo quasi 9 m.","La sezione con la sfera inscritta è il disegno chiave; nella prospettiva interna fai vedere il fascio di luce dell'oculo."],
+["Colosseo","Imperatori flavi","Roma","70–80 d.C.","A",3,"L'Anfiteatro Flavio ha pianta ellittica e una facciata in travertino divisa in quattro registri: arcate inquadrate da semicolonne tuscaniche, ioniche e corinzie, con un attico finale a lesene. Sotto l'arena si sviluppava un sistema di corridoi e montacarichi.","Scegli una porzione di facciata per il prospetto e usa la pianta ellittica per spiegare la distribuzione."],
+["Cupola di Santa Maria del Fiore","Filippo Brunelleschi","Firenze","1420–1436","R",3,"La più grande cupola in muratura mai costruita, voltata senza centine grazie a una doppia calotta ottagonale autoportante e alla posa dei mattoni a spina di pesce. La lanterna in marmo bianco completa il sistema e ne chiude la sommità.","La sezione che mostra le due calotte e l'intercapedine è il cuore della tavola; aiutati con uno schema costruttivo."],
+["Villa Almerico Capra “La Rotonda”","Andrea Palladio","Vicenza","dal 1566","R",2,"Villa a pianta quadrata con una sala circolare al centro coperta da cupola. Su ciascuno dei quattro lati c'è un pronao ionico identico, con scalinata: la villa guarda il paesaggio in tutte le direzioni. È patrimonio UNESCO.","La simmetria guida pianta e prospetto: concentrati su proporzioni esatte e ombre dei pronai."],
+["Tempietto di San Pietro in Montorio","Donato Bramante","Roma","ca. 1502–1510","R",1,"Piccolo edificio a pianta circolare costruito nel luogo tradizionale del martirio di San Pietro. Un peristilio di sedici colonne doriche circonda la cella, coperta da una cupola: è il manifesto dell'architettura del pieno Rinascimento.","Ottimo per un'assonometria pulita e una sezione semplice."],
+["Sagrada Família","Antoni Gaudí","Barcellona","dal 1882","N",3,"Basilica iniziata nel 1882 e affidata a Gaudí dal 1883, che vi lavorò fino alla morte. Le colonne interne si ramificano come alberi, le torri sono traforate e le facciate raccontano la vita di Cristo. Il cantiere è ancora aperto.","Scegli una parte (una facciata o l'interno a colonne arborescenti) e approfondiscila."],
+["Casa Batlló","Antoni Gaudí","Barcellona","1904–1906","N",3,"Ristrutturazione di un edificio esistente sul Passeig de Gràcia. La facciata è rivestita di frammenti ceramici colorati (trencadís), i balconi sembrano maschere e il tetto ricorda il dorso di un drago.","Il prospetto è l'elaborato più forte: lavora molto sui materiali e sul colore."],
+["Casa Milà – La Pedrera","Antoni Gaudí","Barcellona","1906–1912","N",3,"Edificio residenziale d'angolo con facciata ondulata in pietra e balconi in ferro battuto. La struttura a pilastri libera la pianta dai muri portanti; i cortili interni portano luce e la terrazza è popolata da camini scultorei.","La pianta con i cortili e la terrazza sul tetto sono più disegnabili della facciata completa."],
+["Casa Schröder","Gerrit Rietveld","Utrecht","1924","M",1,"Manifesto del movimento De Stijl: piani, linee e colori primari che si incastrano. Al primo piano le pareti scorrevoli trasformano lo spazio da un unico ambiente a più stanze.","Ideale per i pantoni: l'assonometria esplosa dei piani colorati è l'elaborato vincente."],
+["Bauhaus Dessau","Walter Gropius","Dessau","1925–1926","M",2,"Sede della scuola del Bauhaus. Più corpi con funzioni diverse (laboratori, scuola professionale, aula magna e mensa, residenza-atelier degli studenti) si dispongono a girandola; un ponte di due piani sopra la strada collega la scuola ai laboratori. L'ala dei laboratori ha una facciata continua interamente vetrata, su tre piani.","La planivolumetria a girandola spiega il progetto meglio di ogni testo."],
+["Villa Savoye","Le Corbusier e Pierre Jeanneret","Poissy","1928–1931","M",2,"Applicazione dei «cinque punti» di Le Corbusier: pilotis, pianta libera, facciata libera, finestra a nastro e tetto giardino. Una rampa collega i livelli; il piano terra curvo segue il raggio di sterzata dell'automobile.","Nello schema concettuale disegna i cinque punti; la prospettiva a due punti di fuga funziona molto bene."],
+["Notre-Dame-du-Haut","Le Corbusier","Ronchamp","1950–1955","M",3,"Cappella di pellegrinaggio su una collina. La copertura in cemento, simile a un guscio, sembra sollevata dai muri; la parete sud, molto spessa, è forata da aperture irregolari con vetri colorati.","Forme curve: perfetta per l'acquerello. La sezione aiuta a capire la copertura."],
+["Unité d'Habitation","Le Corbusier","Marsiglia","1947–1952","M",2,"Grande blocco residenziale in cemento a vista su pilotis, con alloggi duplex incastrati, una «strada» interna con negozi e un tetto-terrazza con spazi comuni. Le misure seguono il Modulor.","La sezione con gli alloggi duplex incastrati è un ottimo esercizio."],
+["Padiglione di Barcellona","Ludwig Mies van der Rohe e Lilly Reich","Barcellona","1929","M",2,"Padiglione della Germania per l'Esposizione Internazionale del 1929, ricostruito nel 1986. Pareti libere in onice e marmo verde, pilastri cruciformi cromati, una copertura sottile e due vasche d'acqua: è la pianta libera per eccellenza.","Pianta e palette materiali sono fondamentali; cura i riflessi nell'acqua."],
+["Farnsworth House","Ludwig Mies van der Rohe","Plano, Illinois","1945–1951","M",1,"Una piattaforma bianca sollevata dal terreno su otto pilastri in acciaio, chiusa da pareti di vetro. Un nucleo centrale contiene bagni, cucina e camino; il resto è uno spazio unico immerso nel bosco lungo il fiume Fox. Pavimento e terrazza sono in travertino.","Punta sulla qualità del segno e sul rapporto con il paesaggio."],
+["Fallingwater – Casa sulla cascata","Frank Lloyd Wright","Mill Run, Pennsylvania","1935–1939","M",3,"Casa per la famiglia Kaufmann costruita sopra la cascata del torrente Bear Run. Terrazze in cemento armato a sbalzo si sovrappongono in direzioni diverse, ancorate a un nucleo in pietra locale.","La prospettiva dal basso con la cascata è iconica: costruisci prima i volumi delle terrazze, poi aggiungi pietra e acqua."],
+["Robie House","Frank Lloyd Wright","Chicago","1908–1910","N",2,"Capolavoro del Prairie Style: linee orizzontali, tetti bassi con grandi sbalzi, mattoni lunghi e sottili, vetrate decorative. La casa si sviluppa attorno a un camino centrale.","Il prospetto lungo e basso mette in risalto l'orizzontalità: lavora sulle ombre degli sbalzi."],
+["Glass House","Philip Johnson","New Canaan, Connecticut","1949","M",1,"Un unico volume interamente vetrato appoggiato sul prato. L'unico elemento chiuso è un cilindro in mattoni che contiene bagno e camino.","Valorizzala con la vegetazione e i riflessi sul vetro."],
+["Crown Hall","Ludwig Mies van der Rohe","Chicago","1950–1956","M",2,"Sede della facoltà di architettura dell'Illinois Institute of Technology: una grande aula vetrata senza pilastri interni, con la copertura appesa a quattro grandi travi in acciaio poste all'esterno.","Lo schema strutturale con le travi esterne è l'elemento da spiegare."],
+["Casa del Fascio","Giuseppe Terragni","Como","1932–1936","M",2,"Opera simbolo del razionalismo italiano: pianta quadrata, altezza pari a metà del lato, cortile centrale coperto. Le quattro facciate sono diverse ma regolate da una griglia rigorosa; rivestimento in marmo di Botticino.","Pianta e prospetto mostrano bene le proporzioni: usa lo schema della griglia."],
+["Cimitero di San Cataldo","Aldo Rossi e Gianni Braghieri","Modena","dal 1971","S",2,"Progetto vincitore di concorso. Lunghi portici, un cono-fossa comune e un grande cubo-ossario forato da finestre senza infissi, come una casa abbandonata: un'architettura della memoria fatta di forme semplici.","Il cubo e i portici si prestano a prospettiva e assonometria con ombre nette."],
+["Tomba Brion","Carlo Scarpa","San Vito d'Altivole (TV)","1969–1978","S",3,"Complesso funerario per la famiglia Brion, un recinto a L attorno al cimitero comunale. Arcosolio, cappella, padiglione sull'acqua e i due cerchi intrecciati compongono un percorso fatto di cemento, acqua e dettagli minuziosi.","Scegli un frammento (i cerchi intrecciati, il padiglione sull'acqua) da approfondire come dettaglio."],
+["MASP – Museu de Arte de São Paulo","Lina Bo Bardi","San Paolo del Brasile","1957–1968","S",2,"Un grande volume vetrato è sollevato di circa 8 m da terra e sorretto da quattro pilastri rossi collegati da due enormi travi, con una luce libera di 74 m. Sotto resta una piazza pubblica aperta sull'Avenida Paulista. All'interno i quadri erano esposti su cavalletti di vetro.","Il prospetto con la grande campata libera e la piazza sotto è l'immagine da costruire."],
+["Salk Institute","Louis I. Kahn","La Jolla, California","1959–1965","S",2,"Due blocchi di laboratori simmetrici affacciati su una piazza in travertino, tagliata da un canale d'acqua che punta verso l'oceano Pacifico. Cemento a vista e teak.","La prospettiva centrale a un punto di fuga lungo la piazza è perfetta."],
+["Sydney Opera House","Jørn Utzon","Sydney","1959–1973","S",3,"Le «vele» in calcestruzzo prefabbricato, rivestite di piastrelle chiare, sono tutte ricavate dalla stessa sfera. Stanno su un grande podio affacciato sulla baia. È patrimonio UNESCO.","Lo schema concettuale delle vele ricavate da una sfera aiuta molto."],
+["Centre Pompidou","Renzo Piano e Richard Rogers","Parigi","1971–1977","S",2,"Centro culturale con struttura e impianti portati all'esterno, colorati per funzione (blu aria, verde acqua, giallo elettricità, rosso circolazione). Una scala mobile in un tubo trasparente sale lungo la facciata sulla piazza.","Usa i colori degli impianti: un'occasione perfetta per i pantoni."],
+["Terme di Vals","Peter Zumthor","Vals","1993–1996","C",2,"Terme scavate nel pendio della montagna e costruite con lastre sottili di gneiss locale. Grandi blocchi di pietra contengono vasche e stanze; la luce entra da fessure nella copertura.","La sezione nel pendio e la texture a strati di pietra sono i punti di forza."],
+["Guggenheim Museum Bilbao","Frank Gehry","Bilbao","1991–1997","C",3,"Museo sul fiume Nervión con volumi curvi rivestiti in titanio, progettati con l'aiuto del computer. Ha trasformato l'immagine della città (il cosiddetto «effetto Bilbao»).","Punta su una prospettiva dal fiume e sui riflessi del titanio; in pianta semplifica i volumi."],
+["MAXXI","Zaha Hadid Architects","Roma","1998–2009 / apertura 2010","C",3,"Museo nazionale delle arti del XXI secolo nel quartiere Flaminio. Gallerie in cemento si intrecciano e si sovrappongono come flussi; la copertura con lamelle filtra la luce naturale.","Racconta la pianta a flussi con schemi concettuali e una vista dal cortile."],
+["Casa Azuma / Row House","Tadao Ando","Osaka","1976","S",1,"Piccola casa a schiera in cemento faccia a vista divisa in tre parti: al centro un cortile scoperto, che bisogna attraversare all'aperto per passare da una stanza all'altra. Sulla strada mostra solo un muro con la porta.","Lavora sulla sezione con il cortile e sull'assonometria."],
+["Casa Gilardi","Luis Barragán","Città del Messico","1975–1977","S",2,"Ultimo progetto realizzato da Barragán, su un lotto stretto e profondo (10 × 35 m). La casa è organizzata attorno a un patio con un albero di jacaranda già esistente. Facciate rosa acceso, un corridoio giallo che porta alla piscina interna, dove un setto rosso emerge dall'acqua sotto una luce dall'alto.","Il colore è protagonista: palette materiali e vista interna della piscina."],
+["Magney House","Glenn Murcutt","Bingie Point, Australia","1982–1984","S",1,"Casa per le vacanze lunga e sottile, affacciata sull'oceano. La copertura in lamiera ondulata, asimmetrica, raccoglie l'acqua piovana; schermature regolabili controllano sole e vento.","Nel prospetto lungo cura la copertura e il paesaggio costiero."],
+["Church of the Light","Tadao Ando","Ibaraki, Osaka","1989","S",1,"Piccola chiesa in cemento attraversata da un muro inclinato. Dietro l'altare la parete è tagliata da una croce di luce; il pavimento scende verso l'altare.","Vista interna con la croce di luce: gioca con il contrasto chiaro-scuro."],
+["Vitra Fire Station","Zaha Hadid","Weil am Rhein","1993","C",3,"Caserma dei vigili del fuoco per il campus Vitra, primo edificio costruito di Zaha Hadid. Piani in cemento inclinati e affilati sembrano in movimento; oggi è spazio espositivo.","Parti da uno schema dei piani inclinati, poi costruisci la prospettiva."],
+["Chiesa di Santa Maria","Álvaro Siza","Marco de Canaveses","1990–1996","C",1,"Chiesa bianca dalle forme essenziali, con una porta alta circa 10 metri sulla facciata. All'interno una parete curva con finestre alte porta una luce diffusa sull'aula.","Lavora con le ombre sui volumi bianchi e con una vista interna luminosa."],
+["Maison à Bordeaux","OMA / Rem Koolhaas","Bordeaux","1994–1998","C",2,"Casa per un committente in sedia a rotelle. Una piattaforma-ascensore grande come una stanza si muove tra tre livelli: uno scavato nella collina, uno vetrato e uno chiuso, sospeso, forato da oblò.","La sezione con la piattaforma mobile è l'elaborato da non perdere."],
+["Museo Ebraico di Berlino","Daniel Libeskind","Berlino","1989–1999","C",2,"Ampliamento del museo con una pianta a zig-zag e un rivestimento in zinco tagliato da finestre come ferite. Vuoti, la Torre dell'Olocausto e il Giardino dell'Esilio costruiscono un percorso di memoria.","La pianta a zig-zag e la planivolumetria raccontano il progetto."],
+["Mediateca di Sendai","Toyo Ito","Sendai","2001","C",2,"Sette solai sottili sostenuti da tredici «tubi» strutturali in acciaio, alcuni dei quali portano luce e impianti. La facciata principale è un grande schermo di vetro.","Lo schema strutturale con i tubi è il tema: assonometria esplosa dei solai."],
+["Scuola primaria di Gando","Diébédo Francis Kéré","Gando, Burkina Faso","2001","C",1,"Scuola costruita con la comunità del villaggio usando mattoni di terra compressa. Un tetto in lamiera sollevato sopra un controsoffitto in mattoni favorisce la ventilazione naturale. Kéré ha ricevuto il Premio Pritzker nel 2022.","La sezione con il flusso d'aria sotto il tetto spiega la sostenibilità del progetto."],
+["Quinta Monroy","ELEMENTAL / Alejandro Aravena","Iquique, Cile","2004","C",1,"Edilizia sociale per le famiglie che già vivevano sul sito: ogni famiglia riceve «metà di una buona casa» e completa l'altra metà nel tempo. Aravena ha ricevuto il Premio Pritzker nel 2016.","Disegna il prospetto prima e dopo gli ampliamenti: lo schema racconta l'idea."],
+["Casa Poli","Pezo von Ellrichshausen","Coliumo, Cile","2005","C",1,"Volume compatto in cemento sulla scogliera dell'oceano. I muri perimetrali sono spessi e «abitati»: contengono scale, servizi e ripostigli, lasciando libero lo spazio interno.","Perfetta per un'assonometria con ombra e per il paesaggio della scogliera."],
+["Moriyama House","Ryue Nishizawa","Tokyo","2005","C",1,"Invece di un solo edificio, piccoli volumi bianchi separati da giardini e passaggi: una parte è la casa del proprietario, il resto sono alloggi in affitto.","La planivolumetria dei volumi sparsi è l'elaborato chiave."],
+["Cappella Bruder Klaus","Peter Zumthor","Mechernich","2007","C",1,"Cappella nei campi, costruita con l'aiuto di volontari e artigiani del luogo. Il calcestruzzo è stato battuto a strati attorno a una «tenda» di 112 tronchi di abete; un fuoco tenuto acceso per tre settimane li ha seccati, poi sono stati rimossi. L'interno è nero e scavato, illuminato da un'apertura in alto.","Contrasto esterno-interno: affianca prospetto e sezione."],
+["Opera di Oslo","Snøhetta","Oslo","2008","C",2,"Teatro dell'opera sul fiordo. Il tetto in pietra bianca è una piazza inclinata che si può percorrere a piedi fino a scendere nell'acqua.","La sezione con il tetto calpestabile e il fiordo racconta tutto."],
+["Stadio Nazionale di Pechino “Bird's Nest”","Herzog & de Meuron","Pechino","2008","C",3,"Stadio dei Giochi Olimpici del 2008, avvolto da travi in acciaio intrecciate come un nido d'uccello. È stato progettato in collaborazione con l'artista Ai Weiwei.","Lavora per frammenti della trama in acciaio, senza disegnare ogni singola trave."],
+["Bosco Verticale","Boeri Studio","Milano","2014","C",2,"Due torri residenziali nel quartiere Porta Nuova, con balconi a sbalzo piantumati con centinaia di alberi e arbusti: la facciata cambia colore con le stagioni.","Ottimo per esercitarsi con alberi e texture vegetali sul prospetto."],
+["Fondazione Prada","OMA","Milano","2015","C",2,"Sede della fondazione in un'ex distilleria di inizio Novecento, con nuovi edifici accanto a quelli esistenti. La «Haunted House» è rivestita in foglia d'oro.","La planivolumetria vecchio-nuovo e la palette materiali sono i punti forti."],
+["Negozio Olivetti","Carlo Scarpa","Venezia","1957–1958","S",2,"Showroom sotto le Procuratie Vecchie in piazza San Marco. La scala con gradini in marmo sospesi, il pavimento a mosaico colorato e i dettagli in legno, metallo e pietra lo rendono un piccolo capolavoro.","Prospettiva interna con la scala sospesa e un dettaglio dei materiali."],
+["Teatro del Mondo","Aldo Rossi","Venezia","1979–1980","S",1,"Teatro galleggiante costruito per la Biennale di Venezia: una struttura in tubolari d'acciaio rivestita di legno, con una torre ottagonale e una cupola. Navigò fino a Dubrovnik.","Simmetria e acqua: prova una prospettiva dalla laguna."]
+];
+/* FOTO: generato da build — numero edificio → file in img/ */
+const IMGS = {"1": ["img/01a.jpg"], "2": ["img/02a.jpg"], "3": ["img/03a.jpg"], "4": ["img/04a.jpg"], "5": ["img/05a.jpg"], "6": ["img/06a.jpg"], "7": ["img/07a.jpg"], "8": ["img/08a.jpg"], "9": ["img/09a.jpg"], "10": ["img/10a.jpg"], "11": ["img/11a.jpg"], "12": ["img/12a.jpg"], "13": ["img/13a.jpg"], "14": ["img/14a.jpg"], "15": ["img/15a.jpg"], "16": ["img/16a.jpg"], "17": ["img/17a.jpg"], "18": ["img/18a.jpg"], "19": ["img/19a.jpg"], "20": ["img/20a.jpg"], "21": ["img/21a.jpg"], "22": ["img/22a.jpg"], "23": ["img/23a.jpg"], "24": ["img/24a.jpg"], "25": ["img/25a.jpg"], "26": ["img/26a.jpg"], "27": ["img/27a.jpg"], "28": ["img/28a.jpg"], "29": ["img/29a.jpg"], "30": ["img/30a.jpg"], "31": ["img/31a.jpg"], "32": ["img/32a.jpg"], "33": ["img/33a.jpg"], "34": ["img/34a.jpg"], "35": ["img/35a.jpg"], "36": ["img/36a.jpg"], "37": ["img/37a.jpg"], "38": ["img/38a.jpg"], "39": ["img/39a.jpg"], "40": ["img/40a.jpg"], "41": ["img/41a.jpg"], "42": ["img/42a.jpg"], "43": ["img/43a.jpg"], "44": ["img/44a.jpg"], "45": ["img/45a.jpg"], "46": ["img/46a.jpg"], "47": ["img/47a.jpg"], "48": ["img/48a.jpg"], "49": ["img/49a.jpg"], "50": ["img/50a.jpg"]};
+const slug = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+/* ordine cronologico: [anno inizio, anno fine] per ogni voce di B (a.C. negativo) */
+const YEARS = [[-447,-432],[113,125],[70,80],[1420,1436],[1566,1592],[1502,1510],[1882,2026],[1904,1906],[1906,1912],[1924,1924],[1925,1926],[1928,1931],[1950,1955],[1947,1952],[1929,1929],[1945,1951],[1935,1939],[1908,1910],[1949,1949],[1950,1956],[1932,1936],[1971,1984],[1969,1978],[1957,1968],[1959,1965],[1959,1973],[1971,1977],[1993,1996],[1991,1997],[1998,2010],[1976,1976],[1975,1977],[1982,1984],[1989,1989],[1993,1993],[1990,1996],[1994,1998],[1989,1999],[2001,2001],[2001,2001],[2004,2004],[2005,2005],[2005,2005],[2007,2007],[2008,2008],[2008,2008],[2014,2014],[2015,2015],[1957,1958],[1979,1980]];
+const DATA = B.map((b,i)=>({y:YEARS[i],name:b[0],arch:b[1],place:b[2],date:b[3],ep:b[4],diff:b[5],desc:b[6],tip:b[7],slug:slug(b[0]),imgs:IMGS[i+1]||[]}))
+  .sort((a,b)=>a.y[0]-b.y[0] || a.y[1]-b.y[1])
+  .map((d,i)=>(d.n=i+1,d));
+const pad = n => String(n).padStart(2,"0");
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* siti ufficiali di studi e fondazioni (verificati) */
+const SITES = {
+  "Le Corbusier":"https://www.fondationlecorbusier.fr",
+  "Frank Lloyd Wright":"https://franklloydwright.org",
+  "Luis Barragán":"https://barragan-foundation.org",
+  "Aldo Rossi":"https://www.fondazionealdorossi.org",
+  "Lina Bo Bardi":"https://www.institutobardi.org",
+  "Renzo Piano":"https://www.rpbw.com",
+  "Richard Rogers":"https://www.rshp.com",
+  "Frank Gehry":"https://www.foga.com",
+  "Zaha Hadid Architects":"https://www.zha.com",
+  "Zaha Hadid":"https://www.zha.com",
+  "Tadao Ando":"https://www.tadao-ando.com",
+  "OMA":"https://www.oma.com",
+  "Daniel Libeskind":"https://libeskind.com",
+  "Diébédo Francis Kéré":"https://www.kerearchitecture.com",
+  "ELEMENTAL":"https://www.elementalchile.cl",
+  "Snøhetta":"https://www.snohetta.com",
+  "Herzog & de Meuron":"https://www.herzogdemeuron.com",
+  "Boeri Studio":"https://www.stefanoboeriarchitetti.net"
+};
+const SITE_RE = new RegExp("(" + Object.keys(SITES).sort((a,b)=>b.length-a.length).map(k=>esc(k).replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|") + ")","g");
+const SITE_BY_ESC = Object.fromEntries(Object.entries(SITES).map(([k,v])=>[esc(k),v]));
+const linkArch = a => esc(a).replace(SITE_RE, m => `<a class="site" href="${SITE_BY_ESC[m]}" target="_blank" rel="noopener" title="Sito ufficiale">${m}<span aria-hidden="true">↗</span></a>`);
+const q = b => encodeURIComponent(b.name.replace(/[“”]/g,"")+" "+b.arch.split(" e ")[0]);
+
+let fEp = "all";
+/* carte girate: restano girate tornando alla home (e per tutta la sessione) */
+const FLIP_KEY = "atlante-girate";
+let flipped = new Set();
+try { flipped = new Set(JSON.parse(sessionStorage.getItem(FLIP_KEY) || "[]")); } catch(e) {}
+const saveFlipped = () => { try { sessionStorage.setItem(FLIP_KEY, JSON.stringify([...flipped])); } catch(e) {} };
+let homeScroll = 0;
+const updFlipN = () => { const n = document.getElementById("flip-n"); if(n) n.textContent = flipped.size; };
+const front = b => `<div class="top"><span class="num">${pad(b.n)}</span><span class="mono">${esc(E[b.ep])}</span></div>
+      <div class="mid"><div><h3>${esc(b.name)}</h3><div class="by">${esc(b.arch)}</div></div></div>
+      <div class="foot"><span class="mono">${esc(b.place)} · ${esc(b.date)}</span></div>`;
+const app = document.getElementById("app");
+
+function home(){
+  const list = fEp==="flip" ? DATA.filter(b=>flipped.has(b.slug)) : DATA.filter(b=>(fEp==="all"||b.ep===fEp));
+  const chip = (group,val,label,cur)=>`<button class="chip" data-g="${group}" data-v="${val}" aria-pressed="${cur==val}">${label}</button>`;
+  app.innerHTML = `<div class="view">
+  <section class="hero">
+    <span class="mono" style="color:var(--mute)">Laboratorio di Architettura · Modulo di sketching a mano libera</span>
+    <h1><em>Architetture</em> da disegnare</h1>
+    <div class="lede">
+      <p>Scegli un edificio e raccontalo in una tavola, tutta a mano libera e con la tecnica che preferisci: pantoni, acquerelli, china, bianco e nero. Ogni scheda riporta i dati essenziali e un consiglio su cosa mettere al centro.</p>
+      <div class="req" aria-label="Elementi obbligatori della tavola"><span>Pianta</span><span>Prospetto</span><span>Sezione</span><span>Assonometria</span><span>Prospettiva 1–2 p.f.</span><span>Materiali</span></div>
+    </div>
+  </section>
+  <section class="filters" aria-label="Filtri">
+    <div class="frow"><span class="mono lab">Periodo</span>${chip("ep","all","Tutti",fEp)}${Object.entries(E).map(([k,v])=>chip("ep",k,v,fEp)).join("")}<span class="fsep" aria-hidden="true"></span><button class="chip chip-flip" data-g="ep" data-v="flip" aria-pressed="${fEp==="flip"}">Carte girate <b id="flip-n">${flipped.size}</b></button><span class="mono count">${list.length} / 50</span></div>
+  </section>
+  ${list.length?`<section class="grid">${list.map(b=>`
+    ${b.imgs.length?`<a class="card flip${flipped.has(b.slug)?" flipped":""}" href="#${b.slug}" data-slug="${b.slug}"><span class="inner">
+      <span class="face front">${front(b)}</span>
+      <span class="face back"><img src="${b.imgs.length?b.imgs[0].replace(/^img\/(\d+)a\.jpg$/,"img/t/$1.jpg"):""}" alt="" loading="lazy"><span class="cap"><b>${esc(b.name)}</b><span class="explore" role="link" tabindex="0" data-href="#${b.slug}">Esplora la scheda<i><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></i></span></span></span>
+    </span></a>`:`<a class="card" href="#${b.slug}">${front(b)}</a>`}`).join("")}</section>`:`<p class="empty mono">${fEp==="flip" ? "Non hai ancora girato nessuna carta. Torna su Tutti e clicca le schede per scoprirle." : "Nessun edificio con questi filtri."}</p>`}
+  <footer class="mono">Tavola 1 · a.s. 2026/27 · Prof. Niccolò de Ruvo</footer></div>`;
+  app.querySelectorAll(".card.flip").forEach(c=>{
+    c.addEventListener("click",e=>{
+      if(e.target.closest(".explore")) return;          // il pulsante porta alla scheda
+      e.preventDefault();
+      const on = c.classList.toggle("flipped");
+      if(on) flipped.add(c.dataset.slug); else flipped.delete(c.dataset.slug);
+      saveFlipped(); updFlipN();
+    });
+    const ex = c.querySelector(".explore");
+    ex.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); location.hash = ex.dataset.href; } });
+  });
+  app.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+    fEp=c.dataset.v;
+    home();
+  }));
+}
+
+function detail(b){
+  const prev = DATA[(b.n-2+50)%50], next = DATA[b.n%50];
+  const g = `https://www.google.com/search?tbm=isch&q=${q(b)}`;
+  const w = `https://it.wikipedia.org/w/index.php?search=${encodeURIComponent(b.name.replace(/[“”]/g,""))}`;
+  app.innerHTML = `<article class="view">
+  <nav class="crumbs mono"><a href="#">← Tutte le architetture</a><span>N° ${pad(b.n)} / 50</span></nav>
+  <header class="d-head">
+    <span class="mono ep">${esc(E[b.ep])} · ${esc(b.date)}</span>
+    <h1>${esc(b.name)}</h1>
+    <p class="who">${linkArch(b.arch)}</p>
+  </header>
+  <div class="d-body">
+    <figure class="fig">
+      <div class="frame${b.imgs.length?" has":""}">${b.imgs.length?`<button type="button" id="main-img" aria-label="Ingrandisci immagine"><img src="${b.imgs[0]}" alt="${esc(b.name)}, immagine 1"></button>`:`<div class="ph"><b>${pad(b.n)}</b><span class="mono">Fotografia in arrivo</span></div>`}</div>
+      <figcaption class="mono"><span>${esc(b.name)} — ${esc(b.place)}</span>${b.imgs.length>1?`<span id="img-count">1 / ${b.imgs.length}</span>`:""}</figcaption>
+      ${b.imgs.length>1?`<div class="thumbs">${b.imgs.map((src,k)=>`<button type="button" data-k="${k}" aria-label="Immagine ${k+1}" aria-current="${k===0}"><img src="${src}" alt="" loading="lazy"></button>`).join("")}</div>`:""}
+      <div class="links"><a class="btn primary" href="${g}" target="_blank" rel="noopener">Guarda le immagini ↗</a><a class="btn" href="${w}" target="_blank" rel="noopener">Wikipedia ↗</a></div>
+    </figure>
+    <div class="text">
+      <div class="cart">
+        <div class="head mono"><span>Cartiglio</span><span>Tav. 1 · N° ${pad(b.n)}</span></div>
+        <div class="row"><div class="k mono">Progetto</div><div class="v">${linkArch(b.arch)}</div></div>
+        <div class="row"><div class="k mono">Luogo</div><div class="v">${esc(b.place)}</div></div>
+        <div class="row"><div class="k mono">Anni</div><div class="v">${esc(b.date)}</div></div>
+        <div class="row"><div class="k mono">Periodo</div><div class="v">${esc(E[b.ep])}</div></div>
+      </div>
+      <p class="desc">${esc(b.desc)}</p>
+      <div class="tip"><span class="mono">Per la tavola</span><p>${esc(b.tip)}</p></div>
+    </div>
+  </div>
+  <nav class="pager" aria-label="Altre architetture">
+    <a href="#${prev.slug}"><span class="mono">← N° ${pad(prev.n)}</span><span class="t">${esc(prev.name)}</span></a>
+    <a class="next" href="#${next.slug}"><span class="mono">N° ${pad(next.n)} →</span><span class="t">${esc(next.name)}</span></a>
+  </nav></article>`;
+  if(!b.imgs.length) return;
+  let cur = 0;
+  const main = app.querySelector("#main-img img");
+  app.querySelectorAll(".thumbs button").forEach(t=>t.addEventListener("click",()=>{
+    cur = +t.dataset.k; main.src = b.imgs[cur]; main.alt = `${b.name}, immagine ${cur+1}`;
+    app.querySelectorAll(".thumbs button").forEach(x=>x.setAttribute("aria-current", x===t));
+    const c = app.querySelector("#img-count"); if(c) c.textContent = `${cur+1} / ${b.imgs.length}`;
+  }));
+  app.querySelector("#main-img").addEventListener("click",()=>openLb(b.imgs[cur], main.alt));
+}
+
+function openLb(src, alt){
+  const d = document.createElement("div");
+  d.className = "lb"; d.setAttribute("role","dialog"); d.setAttribute("aria-label",alt);
+  d.innerHTML = `<span class="x">Chiudi ✕</span><img src="${src}" alt="${esc(alt)}">`;
+  const close = ()=>{ d.remove(); document.removeEventListener("keydown",esc_); };
+  const esc_ = e=>{ if(e.key==="Escape") close(); };
+  d.addEventListener("click",close); document.addEventListener("keydown",esc_);
+  document.body.appendChild(d);
+}
+
+let onHome = false;
+function route(){
+  const h = location.hash.slice(1);
+  const b = DATA.find(x=>x.slug===h);
+  document.querySelector(".lb")?.remove();
+  if(onHome && b) homeScroll = window.scrollY;
+  if(b){ detail(b); onHome = false; window.scrollTo(0,0); }
+  else { const back = !onHome && homeScroll; home(); onHome = true; window.scrollTo(0, back ? homeScroll : 0); }
+}
+document.getElementById("show-all").addEventListener("click",()=>{
+  const onDetail = location.hash && location.hash !== "#";
+  if(onDetail){ DATA.forEach(d=>{ if(d.imgs.length) flipped.add(d.slug); }); saveFlipped(); homeScroll = 0; location.hash = ""; return; }
+  const cards = [...document.querySelectorAll(".card.flip:not(.flipped)")];
+  cards.forEach(c=>flipped.add(c.dataset.slug)); saveFlipped(); updFlipN();
+  const quick = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  cards.forEach((c,i)=> quick ? c.classList.add("flipped") : setTimeout(()=>c.classList.add("flipped"), i*45));
+});
+document.getElementById("reset-all").addEventListener("click",()=>{
+  flipped.clear(); saveFlipped(); updFlipN();
+  if(location.hash && location.hash !== "#"){ location.hash = ""; return; }   // dalla scheda: torna alla home nel punto in cui eri
+  const quick = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".card.flip.flipped").forEach((c,i)=> quick ? c.classList.remove("flipped") : setTimeout(()=>c.classList.remove("flipped"), i*40));
+});
+window.addEventListener("hashchange",route);
+route();
+
+</script>
+
+</body></html>
